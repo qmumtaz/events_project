@@ -1,21 +1,23 @@
-import { useState } from 'react'
 import Header from './Components/Header'
 import Navbar from './Components/Navbar'
 import Events from './Components/Events'
 import './App.css'
+import {  Router, Routes, Route } from 'react-router-dom';
+import Homepage from './Components/Home';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
-     <div>
-      <Header />
-      <Navbar />
-      <main>
-        <Events />
-      </main>
-    </div>
+     <Header />
+          <Navbar />
+          <Routes>
+            <Route path="/events" element={<Events />} />
+            <Route path="/home" element={<Homepage />} />
+          </Routes>
+    
     </>
   )
 }
