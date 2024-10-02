@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import EventItem from './EventItem';
 
 const Events = () => {
     const [organizations, setOrganizations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // TODO - Publish events , get images for events 
 
     useEffect(() => {
         async function getEvents() {
@@ -48,18 +51,19 @@ const Events = () => {
     return (
         <div style={{ padding: '20px' }}>
             <h2>Upcoming Events</h2>
+            <Link to="/createevent">
+                <button>Create event</button>
+            </Link>
             {organizations.length > 0 ? ( 
                 <ul>
                     {organizations.map(event => (
-                        <li key={event.id}>{event.name.text}</li> 
+                        <li key={event.id}><EventItem events={event}/></li> 
                     ))}
                 </ul>
             ) : (
                 <p>No events to show at the moment. Check back later!</p>
             )}
-            <Link to="/createevent">
-                <button>Create event</button>
-            </Link>
+            
         </div>
     );
 };
