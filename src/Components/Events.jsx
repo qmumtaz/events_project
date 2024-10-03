@@ -8,7 +8,7 @@ const Events = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // TODO - Publish events , get images for events 
+    // TODO - Publish events , get images for events, creating an order
 
     useEffect(() => {
         async function getEvents() {
@@ -57,7 +57,7 @@ const Events = () => {
             {organizations.length > 0 ? ( 
                 <ul>
                     {organizations.map(event => (
-                        <li key={event.id}><EventItem events={event}/></li> 
+                       <Link to={`/event/${event.id}`} ><li key={event.id}><EventItem events={event}/></li> </Link> 
                     ))}
                 </ul>
             ) : (

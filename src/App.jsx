@@ -6,6 +6,8 @@ import {  Router, Routes, Route } from 'react-router-dom';
 import Homepage from './Components/Home';
 import CreateEvent from './Components/CreateEvent';
 
+import SingularEvent from './Components/SingularEvent';
+
 
 function App() {
   
@@ -18,6 +20,7 @@ function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/home" element={<Homepage />} />
             <Route path="/createevent" element={<CreateEvent />} />
+            <Route path="/event/:eventId" element={<SingularEvent />} />
           </Routes>
     
     </>
