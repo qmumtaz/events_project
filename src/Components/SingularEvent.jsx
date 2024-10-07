@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Order from './Order';
 
 const SingularEvent = () => {
   const { eventId } = useParams(); 
@@ -37,15 +38,18 @@ const SingularEvent = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div style={{ padding: '20px' }}>
+    <>
+      <div style={{ padding: '20px' }}>
       <h1>{event.name.text}</h1>
       <p><strong>Start Date:</strong> {new Date(event.start.utc).toLocaleString()}</p>
       <p><strong>End Date:</strong> {new Date(event.end.utc).toLocaleString()}</p>
       <p><strong>Summary:</strong> {event.summary}</p>
       <p><strong>Capacity:</strong> {event.capacity}</p>
-      <p><strong>Description:</strong> {event.description.html}</p>
-      <button>Order tickets</button>
+      <p><strong>Description:</strong> {event.description.html}</p>  
     </div>
+    <Order eventId={eventId}/>
+    </>
+  
   );
 };
 
