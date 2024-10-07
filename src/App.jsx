@@ -7,6 +7,7 @@ import Homepage from './Components/Home';
 import CreateEvent from './Components/CreateEvent';
 
 import SingularEvent from './Components/SingularEvent';
+import Order from './Components/Order';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/home" element={<Homepage />} />
             <Route path="/createevent" element={<CreateEvent />} />
             <Route path="/event/:eventId" element={<SingularEvent />} />
+            <Route path="/event/:eventId/order" element={<Order />} />
           </Routes>
     
     </>
