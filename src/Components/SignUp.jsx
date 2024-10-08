@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase'; 
 
-const SignUp = ({ onSignUp }) => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert("Passwords don't match!");
-    } else {
-     
-      onSignUp({ email });
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('Signed up successfully:', userCredential.user);
       alert('Signed up successfully!');
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert(error.message);
     }
   };
 
