@@ -8,6 +8,8 @@ import CreateEvent from './Components/CreateEvent';
 
 import SingularEvent from './Components/SingularEvent';
 import Order from './Components/Order';
+import Login from './Components/Login';
+import SignUp from './Components/SignUp';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
             <Route path="/createevent" element={<CreateEvent />} />
             <Route path="/event/:eventId" element={<SingularEvent />} />
             <Route path="/event/:eventId/order" element={<Order />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
     
     </>

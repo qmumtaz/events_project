@@ -1,9 +1,11 @@
 import React from 'react'
 import "./Styling/eventitem.css"
 import PublishEvent from './PublishEvent'
+import AddToGoogleCalendar from './AddToGoogleCalander'
 
 
 const EventItem = ({events}) => {
+
   return (
     <>
         <div className="event-item">
@@ -20,6 +22,16 @@ const EventItem = ({events}) => {
           </div>
         
         </div>
+    
+       
+
+        <AddToGoogleCalendar  event={{
+    startDate: events.startDate, // Make sure these are valid ISO date strings
+    endDate: '2024-10-05T13:13:00Z',
+    summary: events.name.text,
+    location: 'Online',
+    description: events.summary}} />
+    
     </>
 
 
