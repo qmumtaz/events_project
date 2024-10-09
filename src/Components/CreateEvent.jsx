@@ -82,6 +82,8 @@ const CreateEvent = () => {
     return (
         <div style={{ padding: '20px' }}>
             <h2>Create Event</h2>
+
+            <p>You can creates make sure to create the event first  and then make the tickets for them the order is important!</p>
             {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
             {success && <p style={{ color: 'green' }}>Event created successfully!</p>}
             <div>

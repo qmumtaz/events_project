@@ -1,35 +1,34 @@
-import React, { useState, useEffect } from 'react'; 
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
-import Events from './Components/Events';
-import './App.css';
-import {   Routes, Route } from 'react-router-dom'; 
 import Homepage from './Components/Home';
+import Events from './Components/Events';
 import CreateEvent from './Components/CreateEvent';
-import SingularEvent from './Components/SingularEvent';
-import Order from './Components/Order';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
+import Profile from './Components/Profile';
+import SingularEvent from './Components/SingularEvent';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '.././firebase';
-import Profile from './Components/Profile';
+import { auth, db } from '../firebase';  
+import React, { useEffect, useState } from 'react';
+import './app.css';
+import Order from './Components/Order';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [role, setRole] = useState(''); 
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-
       if (currentUser) {
-      
         const docRef = doc(db, 'users', currentUser.uid);
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
-          setRole(docSnap.data().role); 
+          setRole(docSnap.data().role);
+        } else {
+          console.log("No such document!");
         }
       } else {
         setRole('');
@@ -40,22 +39,28 @@ function App() {
   }, []);
 
   return (
-   <>
-   <Header />
-      <Navbar user={user} role={role} /> 
+    <>
+      <Header />
+      <Navbar user={user} role={role} />
       <Routes>
-        <Route path="/events" element={<Events />} />
+         {/* Public routes  */}
+        <Route path="/events" element={<Events role={role} />} />
         <Route path="/home" element={<Homepage />} />
-        <Route path="/createevent" element={<CreateEvent />} />
         <Route path="/event/:eventId" element={<SingularEvent />} />
         <Route path="/event/:eventId/order" element={<Order />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
+        
+        {/* Redirect logged-in users away from login/signup */}
+        <Route path="/login" element={user ? <Navigate to="/profile" /> : <Login />} />
+        <Route path="/signup" element={user ? <Navigate to="/profile" /> : <SignUp />} />
+        
+        {/* Protected routes */}
+        <Route path="/createevent" element={role === 'staff' ? <CreateEvent /> : <Navigate to="/home" />} />
+        <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
+        
+        {/* Catch-all route */}
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
-   </>
-      
-   
+    </>
   );
 }
 

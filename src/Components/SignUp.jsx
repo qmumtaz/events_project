@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase'; 
+import { auth, db } from '../../firebase'; 
+import { doc, setDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert("Passwords don't match!");
-      return;
-    }
-
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('Signed up successfully:', userCredential.user);
-      alert('Signed up successfully!');
+      const user = userCredential.user;
+
+      const role = email.endsWith('@eventstaff.com') ? 'staff' : 'member';
+   
+      await setDoc(doc(db, 'users', user.uid), {
+        email,
+        role, 
+      });
+
+      console.log('User signed up successfully:', user);
+      alert('User signed up successfully!');
+      navigate('/home'); 
     } catch (error) {
       console.error('Error signing up:', error);
       alert(error.message);
@@ -44,15 +51,6 @@ const SignUp = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </div>
