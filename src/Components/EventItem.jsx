@@ -3,7 +3,6 @@ import "./Styling/eventitem.css"
 import PublishEvent from './PublishEvent'
 import AddToGoogleCalendar from './AddToGoogleCalander'
 
-
 const EventItem = ({events}) => {
 
   return (
@@ -26,7 +25,7 @@ const EventItem = ({events}) => {
        
 
         <AddToGoogleCalendar  event={{
-    startDate: events.startDate, // Make sure these are valid ISO date strings
+    startDate: events.startDate, 
     endDate: '2024-10-05T13:13:00Z',
     summary: events.name.text,
     location: 'Online',

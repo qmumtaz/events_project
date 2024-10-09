@@ -25,22 +25,15 @@ const Navbar = ({ user, role }) => {
         {user ? (
           <>  
             {role === 'staff' && (
-              <>
-                <li><Link to="/staff-dashboard">Staff Dashboard</Link></li>
-                <li><Link to="/manage-events">Manage Events</Link></li>
-              </>
+              
+            <li><Link to="/createevent">
+             Create Event
+               </Link>
+            </li>   
             )}
-
-          
-            {role === 'member' && (
-              <>
-                <li><Link to="/member-dashboard">Member Dashboard</Link></li>
-                <li><Link to="/browse-events">Browse Events</Link></li>
-              </>
-            )}
-
             <li><Link to="/profile">Profile</Link></li>
             <li><button onClick={handleLogout}>Logout</button></li> 
+            
           </>
         ) : (
         
