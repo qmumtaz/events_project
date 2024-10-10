@@ -1,17 +1,7 @@
-
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AlzaSyBGa-WOowb4juWT7J9V2GxRtLFVrHZCv0", 
-//   authDomain: "eventsproject-9317c.firebaseapp.com",
-//   projectId: "eventsproject-9317c",
-//   storageBucket: "eventsproject-9317c.appspot.com",
-//   messagingSenderId: "471538281460", 
-//   appId: "YOUR_APP_ID", 
-// };
 
 const firebaseConfig = {
     apiKey: "AIzaSyBGa-WOowb4juWt77J9V2GxRfLrVHhZCv0",
