@@ -3,21 +3,22 @@ import axios from 'axios';
 
 const PublishEvent = ({ eventId }) => {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
-
-  const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
+  const [success, setSuccess] = useState(false);
+  const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY; 
 
   const publishEvent = async (e) => {
-    e.preventDefault();    
-    e.stopPropagation(); 
+    e.preventDefault();
+    e.stopPropagation();
     setLoading(true);
     setError(null);
     setSuccess(false);
 
+    console.log('Publishing event with ID:', eventId); 
+
     try {
       const response = await axios.post(
-        `https://www.eventbriteapi.com/v3/events/${eventId}/publish/`,
+        `https://www.eventbriteapi.com/v3/events/${eventId}/publish/`, 
         {},
         {
           headers: {
@@ -28,9 +29,7 @@ const PublishEvent = ({ eventId }) => {
       );
       setSuccess(true);
     } catch (error) {
-      
       setError(error.response?.data || 'An error occurred');
-     
     } finally {
       setLoading(false);
     }
@@ -39,10 +38,11 @@ const PublishEvent = ({ eventId }) => {
   return (
     <div>
       <button onClick={publishEvent} disabled={loading}>
-        {loading ? 'Publishing Event...' : 'Publish Event'}
+        {loading ? 'Publishing...' : 'Publish Event'}
       </button>
-      {error && <p style={{ color: 'red' }}>Error: {error.error_description}</p>}
-      {success && <p style={{ color: 'green' }}>Event published successfully!</p>}
+
+      {success && <p>Event published successfully!</p>}
+      {error && <p>Error publishing event: {error.message}</p>}
     </div>
   );
 };

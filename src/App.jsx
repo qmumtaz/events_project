@@ -14,6 +14,9 @@ import { auth, db } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import './app.css';
 import Order from './Components/Order';
+import PublishEvents from './Components/PublishEvents';
+import PublishEventPage from './Components/PublishEventsPage';
+import ManagementEvents from './Components/ManagementEvents';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -55,7 +58,10 @@ function App() {
         
         {/* Protected routes */}
         <Route path="/createevent" element={role === 'staff' ? <CreateEvent /> : <Navigate to="/home" />} />
+        <Route path="/manageevents" element={role === 'staff' ? <ManagementEvents /> : <Navigate to="/home" />} />
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
+        <Route path="/publish" element={role === 'staff' ? <PublishEvents /> : <Navigate to="/home" />} />
+        <Route path="/publish/:id" element={role === 'staff' ? <PublishEventPage /> : <Navigate to="/home" />} />
         
         {/* Catch-all route */}
         <Route path="*" element={<Navigate to="/home" />} />
