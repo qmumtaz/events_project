@@ -24,23 +24,27 @@ const Navbar = ({ user, role }) => {
 
         {}
         {user ? (
-          <>  
-            {role === 'staff' && (
-              
-            <li><Link to="/manageevents">
-           Manage Events 
-               </Link>
-            </li> 
-          
-          )}
-         <li>
-          <Link to="/publish">Publish Events</Link>
-            </li>
-
-            <li><Link to="/profile">Profile</Link></li>
-            <li><button onClick={handleLogout}>Logout</button></li> 
-            
-          </>
+           <>  
+           {role === 'staff' && (
+             <li>
+               <Link to="/manageevents">Manage Events</Link>
+             </li> 
+           )}
+           {(role === 'staff' || role === 'user') && (
+             <li>
+               <Link to="/calendar">Calendar</Link>
+             </li>
+           )}
+           <li>
+             <Link to="/publish">Publish Events</Link>
+           </li>
+           <li>
+             <Link to="/profile">Profile</Link>
+           </li>
+           <li>
+             <button onClick={handleLogout}>Logout</button>
+           </li> 
+         </>
         ) : (
         
           <>
