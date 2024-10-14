@@ -16,7 +16,7 @@ const CreateEvent = () => {
     const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
     const orgID = import.meta.env.VITE_ORG_ID;
 
-    // :TODO - try to get image , location, update events and deletes 
+    // :TODO - try to get image , location
    // fix styling for when publishing an event it makes the div bigger
 
 
