@@ -14,8 +14,6 @@ const UpdateEvents =() => {
     const [fetchingData, setFetchingData] = useState(true);
     const { eventId } = useParams(); 
 
-    //this part is done 
-
     const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
 
     useEffect(() => {
