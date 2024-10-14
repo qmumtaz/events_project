@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CancelEvent from './CancelEvent';
+import UpdateEvents from './UpdateEvents';
 
 const ManageEvents = () => {
     const [events, setEvents] = useState([]);
@@ -66,6 +67,7 @@ const ManageEvents = () => {
                                 eventName={event.name.text}  
                                 onCancel={handleEventCancel} 
                             />
+                            <Link to={`/updateevent/${event.id}`}>Update Events</Link>
                         </li>
                     ))}
                 </ul>

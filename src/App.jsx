@@ -17,6 +17,7 @@ import Order from './Components/Order';
 import PublishEvents from './Components/PublishEvents';
 import PublishEventPage from './Components/PublishEventsPage';
 import ManagementEvents from './Components/ManagementEvents';
+import UpdateEvents from './Components/UpdateEvents';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -58,6 +59,7 @@ function App() {
         
         {/* Protected routes */}
         <Route path="/createevent" element={role === 'staff' ? <CreateEvent /> : <Navigate to="/home" />} />
+        <Route path="/updateevent/:eventId" element={role === 'staff' ? <UpdateEvents /> : <Navigate to="/manageevents" />} />
         <Route path="/manageevents" element={role === 'staff' ? <ManagementEvents /> : <Navigate to="/home" />} />
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
         <Route path="/publish" element={role === 'staff' ? <PublishEvents /> : <Navigate to="/home" />} />
