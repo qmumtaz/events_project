@@ -19,7 +19,6 @@ const Navbar = ({ user, role }) => {
       <ul>
         <li><Link to="/home">Home</Link></li>
         <li><Link to="/events">Events</Link></li>
-        <li><Link to="/">About</Link></li>
         
 
         {}

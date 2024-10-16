@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Order from './Order';
+import AddToGoogleCalendar from './AddToGoogleCalander';
 
 const SingularEvent = () => {
   const { eventId } = useParams(); 
@@ -37,6 +38,8 @@ const SingularEvent = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
+  console.log(event.start);
+  console.log(event.end);
   return (
     <>
       <div style={{ padding: '20px' }}>
@@ -48,6 +51,9 @@ const SingularEvent = () => {
       <p><strong>Description:</strong> {event.description.html}</p>  
     </div>
     <Order eventId={eventId}/>
+    <AddToGoogleCalendar event={event} />
+   
+    
     </>
   
   );
