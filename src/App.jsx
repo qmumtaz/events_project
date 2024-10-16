@@ -19,6 +19,7 @@ import PublishEventPage from './Components/PublishEventsPage';
 import ManagementEvents from './Components/ManagementEvents';
 import UpdateEvents from './Components/UpdateEvents';
 import Calendar from './Components/Calendar';
+import { AuthProvider } from '../AuthContext';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -44,7 +45,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <AuthProvider>
       <Header />
       <Navbar user={user} role={role} />
       <Routes>
@@ -65,13 +66,12 @@ function App() {
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
         <Route path="/publish" element={role === 'staff' ? <PublishEvents /> : <Navigate to="/home" />} />
         <Route path="/publish/:id" element={role === 'staff' ? <PublishEventPage /> : <Navigate to="/home" />} />
-        <Route path="/calendar" element={role === 'staff' || role === 'user' ? <Calendar /> : <Navigate to="/home" />}/>
-        
+        <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login" />} />
         
         {/* Catch-all route */}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
-    </>
+    </AuthProvider>
   );
 }
 
