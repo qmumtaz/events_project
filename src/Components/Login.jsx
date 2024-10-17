@@ -2,22 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase'; 
 import { useNavigate } from 'react-router-dom';
+import { SignInWithGoogle, signOutUser } from './SignInWithGoogle'; 
 
-const Login = ({user}) => {
+const Login = ({ user }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (user) {
-      navigate('/home'); 
+      navigate('/home');
     }
   }, [user, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('Logged in successfully:', userCredential.user);
@@ -52,6 +51,8 @@ const Login = ({user}) => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <button onClick={SignInWithGoogle}>Sign in with Google</button>
+      <button onClick={signOutUser}>Sign out</button>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import SignUp from './Components/SignUp';
 import Profile from './Components/Profile';
 import SingularEvent from './Components/SingularEvent';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';  
 import React, { useEffect, useState } from 'react';
 import './app.css';
@@ -35,6 +35,9 @@ function App() {
           setRole(docSnap.data().role);
         } else {
           console.log("No such document!");
+          const defaultRole = 'member';
+          await setDoc(docRef, { email: currentUser.email, role: defaultRole });
+          setRole(defaultRole);
         }
       } else {
         setRole('');
