@@ -27,16 +27,16 @@ const Navbar = ({ user, role }) => {
            {role === 'staff' && (
              <li>
                <Link to="/manageevents">Manage Events</Link>
+               <Link to="/publish">Publish events</Link>
              </li> 
+             
            )}
-           {(role === 'staff' || role === 'user') && (
+           {(role === 'staff' || role === 'member' || role === 'user') && (
              <li>
                <Link to="/calendar">Calendar</Link>
              </li>
            )}
-           <li>
-             <Link to="/publish">Publish Events</Link>
-           </li>
+           
            <li>
              <Link to="/profile">Profile</Link>
            </li>

@@ -16,10 +16,10 @@ function Calendar() {
       start: { local: '2024-10-16T14:00:00Z' },
       end: { local: '2024-10-16T16:00:00Z' },
     },
-    // ...more events
+   
   ];
   
-  // Inside your main component or app
+ 
   <MyBigCalendar events={eventsData} />
   
   return (

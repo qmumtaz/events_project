@@ -30,7 +30,7 @@ const Order = ({ eventId }) => {
     <div>
       <h2>Buy Tickets</h2>
      
-      <button id={`eventbrite-widget-modal-trigger-${eventId}`}>Buy Tickets</button>
+      <button id={`eventbrite-widget-modal-trigger-${eventId}`}>Sign up to Event</button>
     </div>
   );
 };
