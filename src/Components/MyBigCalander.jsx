@@ -1,52 +1,76 @@
-// src/MyBigCalendar.jsx
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import axios from 'axios';
 import { useAuth } from '../../AuthContext';
-import { db } from '../../firebase';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+
 
 const localizer = momentLocalizer(moment);
 
 const MyBigCalendar = () => {
   const { user } = useAuth();
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
+  const orgID = import.meta.env.VITE_ORG_ID;
+
 
   useEffect(() => {
     const fetchEvents = async () => {
-      if (user) {
         try {
-          const eventsCollection = collection(db, 'users', user.uid, 'events');
-          const eventsSnapshot = await getDocs(eventsCollection);
-          const eventsData = eventsSnapshot.docs.map(doc => ({
-            ...doc.data(),
-            id: doc.id,
-            start: new Date(doc.data().start),
-            end: new Date(doc.data().end),
-          }));
-          console.log("Fetched Events:", eventsData); 
-          setEvents(eventsData);
+            const response = await axios.get(
+                `https://www.eventbriteapi.com/v3/organizations/${orgID}/events/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${apiKey}`,
+                    },
+                }
+            );
+
+            const fetchedEvents = response.data.events || [];
+
+            const filteredEvents = fetchedEvents.filter(
+                (event) => event.status === 'draft' || event.status === 'completed'
+            );
+
+            const formattedEvents = filteredEvents.map((event) => ({
+                id: event.id,
+                title: event.name.text,
+                start: new Date(event.start.local),
+                end: new Date(event.end.local),
+            }));
+
+            setEvents(formattedEvents);
+            setLoading(false);
         } catch (error) {
-          console.error('Error fetching events from Firestore:', error);
+            console.error('Error fetching events:', error);
+            setError('Failed to load events.');
+            setLoading(false);
         }
-      }
     };
 
     fetchEvents();
-  }, [user]);
+}, [apiKey, orgID]);
+
 
   const handleSelectEvent = async (event) => {
-    if (window.confirm(`Do you want to remove the event: ${event.title}?`)) {
+    if (window.confirm(`Do you want to go the event: ${event.title}?`)) {
       try {
-        const eventDoc = doc(db, 'users', user.uid, 'events', event.id);
-        await deleteDoc(eventDoc);
-        setEvents(events.filter((e) => e.id !== event.id));
+        
+        navigate(`/event/${event.id}`)
       } catch (error) {
-        console.error('Error removing event: ', error);
+       setError(error)
       }
     }
   };
+
+  if (loading) return <p>Loading events...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Ticket = ({ eventId }) => {
     const [ticketName, setTicketName] = useState('');
@@ -9,6 +10,7 @@ const Ticket = ({ eventId }) => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
 
@@ -26,8 +28,8 @@ const Ticket = ({ eventId }) => {
                     ticket_class: {
                         name: ticketName,
                         quantity_total: quantityTotal,
-                        free: isFree, // Set free option
-                        cost: formattedCost, // Cost only if not free
+                        free: isFree, 
+                        cost: formattedCost, 
                     },
                 },
                 {
@@ -38,10 +40,9 @@ const Ticket = ({ eventId }) => {
                 }
             );
 
-            console.log('Ticket created:', response.data);
             setSuccess(true);
+            navigate('/events');
         } catch (error) {
-            console.error('Error creating ticket:', error);
             setError(error.response?.data?.message || 'You must create an Event first then a ticket');
         } finally {
             setLoading(false);
