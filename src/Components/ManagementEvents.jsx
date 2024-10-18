@@ -33,7 +33,6 @@ const ManageEvents = () => {
                 const canceledEvents = getCanceledEvents();
                 const fetchedEvents = response.data.events || [];
 
-
                 const filteredEvents = fetchedEvents.filter(event => !canceledEvents.includes(event.id));
                 setEvents(filteredEvents);
                 setLoading(false);
@@ -68,7 +67,9 @@ const ManageEvents = () => {
                                 onCancel={handleEventCancel} 
                             />
                             <Link to={`/updateevent/${event.id}`}>Update Events</Link>
+                            
                         </li>
+                        
                     ))}
                 </ul>
             ) : (

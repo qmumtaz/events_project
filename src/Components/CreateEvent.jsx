@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import Ticket from './Ticket';
+import Ticket from './Ticket'; 
+
 
 const CreateEvent = () => {
     const [eventName, setEventName] = useState('');
@@ -12,13 +13,11 @@ const CreateEvent = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(null);
+    const [ticketSubmitted, setTicketSubmitted] = useState(false); 
+    
 
     const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
     const orgID = import.meta.env.VITE_ORG_ID;
-
-    // :TODO - try to get image , location
-   // fix styling for when publishing an event it makes the div bigger
-
 
     const isDateInPast = (date) => {
         const now = new Date();
@@ -42,13 +41,11 @@ const CreateEvent = () => {
                 }
             });
             const createdEventId = response.data.id; 
-             
             setEventId(createdEventId);
-            
-            console.log('Event created:', response.data);
+            setSuccess(true);
             return response.data;
         } catch (error) {
-            console.error('Error creating event:', error);
+            setError(error);
             throw error;
         }
     };
@@ -56,7 +53,6 @@ const CreateEvent = () => {
     const handleCreateEvent = async () => {
         setLoading(true);
         setError(null);
-        setSuccess(false);
 
         if (isDateInPast(startDate)) {
             setError({ message: 'Start date cannot be today or in the past.' });
@@ -68,10 +64,8 @@ const CreateEvent = () => {
             const formattedStartDate = new Date(startDate).toISOString().replace(/\.\d{3}/, '');
             const formattedEndDate = new Date(endDate).toISOString().replace(/\.\d{3}/, '');
 
-            const eventCreated = await createEvent(orgID, eventName || 'Test Event', formattedStartDate, formattedEndDate, currency, summary);
-            
-            setSuccess(true);
-            console.log('Created event:', eventCreated);
+            await createEvent(orgID, eventName || 'Test Event', formattedStartDate, formattedEndDate, currency, summary);
+            setTicketSubmitted(false); 
         } catch (error) {
             setError(error);
         } finally {
@@ -79,67 +73,81 @@ const CreateEvent = () => {
         }
     };
 
+
+
     return (
         <div style={{ padding: '20px' }}>
             <h2>Create Event</h2>
 
-            <p>You can creates make sure to create the event first  and then make the tickets for them the order is important!</p>
+            <p>You must create the event first, then complete the ticket details.</p>
             {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
             {success && <p style={{ color: 'green' }}>Event created successfully!</p>}
-            <div>
-                <label>Event Name:</label>
-                <input 
-                    type="text" 
-                    value={eventName} 
-                    onChange={(e) => setEventName(e.target.value)} 
-                    required 
-                />
-            </div>
-            <div>
-                <label>Summary:</label> 
-                <textarea 
-                    value={summary} 
-                    onChange={(e) => setSummary(e.target.value)} 
-                    required 
-                    rows="4" 
-                    cols="50"
-                />
-            </div>
-            <div>
-                <label>Start Date:</label>
-                <input 
-                    type="datetime-local" 
-                    value={startDate} 
-                    onChange={(e) => setStartDate(e.target.value)} 
-                    required 
-                />
-            </div>
-            <div>
-                <label>End Date:</label>
-                <input 
-                    type="datetime-local" 
-                    value={endDate} 
-                    onChange={(e) => setEndDate(e.target.value)} 
-                    required 
-                />
-            </div>
-            <div>
-                <label>Currency:</label>
-                <select 
-                    value={currency} 
-                    onChange={(e) => setCurrency(e.target.value)} 
-                >
-                    <option value="USD">USD</option>
-                    <option value="GBP">GBP</option>
-                    <option value="EUR">EUR</option>
-                    <option value="CAD">CAD</option>
-                </select>
-            </div>
-           
-            <button onClick={handleCreateEvent} disabled={loading}>
-                {loading ? 'Creating Event...' : 'Create Event'}
-            </button>
-            <Ticket eventId={eventId}  />
+            
+            {!success ? ( 
+                <div>
+                    <div>
+                        <label>Event Name:</label>
+                        <input 
+                            type="text" 
+                            value={eventName} 
+                            onChange={(e) => setEventName(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label>Summary:</label> 
+                        <textarea 
+                            value={summary} 
+                            onChange={(e) => setSummary(e.target.value)} 
+                            required 
+                            rows="4" 
+                            cols="50"
+                        />
+                    </div>
+                    <div>
+                        <label>Start Date:</label>
+                        <input 
+                            type="datetime-local" 
+                            value={startDate} 
+                            onChange={(e) => setStartDate(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label>End Date:</label>
+                        <input 
+                            type="datetime-local" 
+                            value={endDate} 
+                            onChange={(e) => setEndDate(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label>Currency:</label>
+                        <select 
+                            value={currency} 
+                            onChange={(e) => setCurrency(e.target.value)} 
+                        >
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="EUR">EUR</option>
+                            <option value="CAD">CAD</option>
+                        </select>
+                    </div>
+                    
+                    <button onClick={handleCreateEvent} disabled={loading}>
+                        {loading ? 'Creating Event...' : 'Create Event'}
+                    </button>
+                </div>
+            ) : (
+                <div>
+                    <h3>Create Ticket</h3>
+                    <Ticket 
+                        eventId={eventId}
+                    />
+                   
+                </div>
+            )}
         </div>
     );
 };

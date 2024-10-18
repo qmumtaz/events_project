@@ -20,6 +20,7 @@ import ManagementEvents from './Components/ManagementEvents';
 import UpdateEvents from './Components/UpdateEvents';
 import Calendar from './Components/Calendar';
 import { AuthProvider } from '../AuthContext';
+import Ticket from './Components/Ticket';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -70,6 +71,7 @@ function App() {
         <Route path="/publish" element={role === 'staff' ? <PublishEvents /> : <Navigate to="/home" />} />
         <Route path="/publish/:id" element={role === 'staff' ? <PublishEventPage /> : <Navigate to="/home" />} />
         <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login" />} />
+        <Route path="/ticket/:id" element={user ? <Ticket /> : <Navigate to="/login" />} />
         
         {/* Catch-all route */}
         <Route path="*" element={<Navigate to="/home" />} />
