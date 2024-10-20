@@ -1,6 +1,6 @@
 // Homepage.js
 import React from 'react';
-import './styles.css'; 
+ 
 
 const Homepage = () => {
  
@@ -11,8 +11,8 @@ const Homepage = () => {
   ];
 
   return (
-    <div className="homepage">
-      <header className="homepage-header">
+    <div >
+      <header >
         <h1>Welcome to the Events Platform</h1>
         <p>Your one-stop solution for discovering amazing events happening near you!</p>
       </header>

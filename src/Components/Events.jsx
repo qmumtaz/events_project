@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import EventItem from './EventItem';
 import './Styling/events.css';
+import { Form, Spinner } from 'react-bootstrap';
 
 const Events = () => {
   const [organizations, setOrganizations] = useState([]);
@@ -38,7 +39,9 @@ const Events = () => {
 
   
   if (loading) {
-    return <p>Loading events...</p>;
+    return  <Spinner animation="border" role="status">
+    <span className="visually-hidden">Loading...</span>
+  </Spinner>;
   }
 
   if (error) {
@@ -58,15 +61,15 @@ const Events = () => {
   });
 
   return (
-    <div>
+    <div className='events-container'>
       <h2>Upcoming Events</h2>
     
-      <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
+      <Form.Select aria-label="Default select example" value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
         <option value="">All Events</option>
         <option value="draft">Draft Events</option>
         <option value="upcomingevents">Upcoming Events</option>
         <option value="cancelevents">Cancelled Events</option>
-      </select>
+      </Form.Select>
 
       {filteredEvents.length > 0 ? (
         <ul className='eventslist'>

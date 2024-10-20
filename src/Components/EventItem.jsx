@@ -1,32 +1,28 @@
 import React from 'react'
 import "./Styling/eventitem.css"
-import PublishEvent from './PublishEvent'
-import AddToGoogleCalendar from './AddToGoogleCalander'
+import Card from 'react-bootstrap/Card';
+import { ListGroup } from 'react-bootstrap';
+
 
 const EventItem = ({events}) => {
 
   return (
     <>
-        <div className="event-item">
-            <h3>{events.name.text}</h3> 
-            <p><strong>Start Date:</strong> {new Date(events.start.utc).toLocaleString(undefined, {  year: 'numeric', month: 'long',  day: 'numeric'})}</p> 
-            <p><strong>End Date:</strong> {new Date(events.end.utc).toLocaleString(undefined, { year: 'numeric',  month: 'long',  day: 'numeric' })}</p> 
-            <p><strong>Summary:</strong> {events.summary}</p> 
-            <p><strong>capacity:</strong> {events.capacity}</p> 
-            <p><strong>Status:</strong> {events.on_sale_status}</p> 
-        </div>
+        <Card style={{ width: '18rem' }}>
+            <Card.Body> 
+            <Card.Title>{events.name.text}</Card.Title> 
+            <Card.Subtitle className="mb-2 text-muted"><strong>Summary:</strong> {events.summary}</Card.Subtitle> 
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+            <ListGroup.Item>Start Date : {new Date(events.start.utc).toLocaleString(undefined, {  year: 'numeric', month: 'long',  day: 'numeric'})} </ListGroup.Item>
+            <ListGroup.Item>Status: {events.status}</ListGroup.Item>
+            </ListGroup>
+            
+        </Card>
         <div>
         </div>
     
-       
 
-        {/* <AddToGoogleCalendar  event={{
-    startDate: events.startDate, 
-    endDate: '2024-10-05T13:13:00Z',
-    summary: events.name.text,
-    location: 'Online',
-    description: events.summary}} /> */}
-    
     </>
 
 
