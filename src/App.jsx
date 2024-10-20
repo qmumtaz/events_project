@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Header from './Components/Header';
-import Navbar from './Components/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavbarComponent from './Components/NavbarComponent';
 import Homepage from './Components/Home';
 import Events from './Components/Events';
 import CreateEvent from './Components/CreateEvent';
@@ -50,8 +50,8 @@ function App() {
 
   return (
     <AuthProvider>
-      <Header />
-      <Navbar user={user} role={role} />
+
+      <NavbarComponent user={user} role={role} />
       <Routes>
          {/* Public routes  */}
         <Route path="/events" element={<Events role={role} />} />
