@@ -3,10 +3,15 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase'; 
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
+import GoogleButton from 'react-google-button';
+import { SignInWithGoogle } from './SignInWithGoogle'; 
+import './Styling/signup.css'; 
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
@@ -20,42 +25,53 @@ const SignUp = () => {
    
       await setDoc(doc(db, 'users', user.uid), {
         email,
+        username,
         role, 
       });
 
-      console.log('User signed up successfully:', user);
       alert('User signed up successfully!');
       navigate('/home'); 
     } catch (error) {
-      console.error('Error signing up:', error);
       alert(error.message);
     }
   };
 
   return (
-    <div>
+    <div className="signup-container">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignUp}>
-        <div>
+      <Form onSubmit={handleSignUp}>
+      <Form.Group>
+          <label>Username:</label>
+          <Form.Control
+            type="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group>
           <label>Email:</label>
-          <input
+          <Form.Control
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
+        </Form.Group>
+        
+        <Form.Group>
           <label>Password:</label>
-          <input
+          <Form.Control
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
+        </Form.Group>
+        <button type="submit" className="btn-custom">Sign Up</button>
+      </Form>
+      <Form.Text className='botttomtext'>Already have an account ? Sign in</Form.Text>
+      <GoogleButton onClick={SignInWithGoogle} className='googlebtn' />
     </div>
   );
 };

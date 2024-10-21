@@ -23,7 +23,7 @@ const NavbarComponent = ({ user, role }) => {
     <>
       <Navbar expand={false} className="bg-body-tertiary mb-3" id="nav">
         <Container fluid>
-          <Navbar.Brand href="/home">Events</Navbar.Brand>
+          <Navbar.Brand href="/home">Eventures</Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
