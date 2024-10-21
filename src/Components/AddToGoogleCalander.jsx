@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const AddToGoogleCalendar = ({ event }) => {
   const formatDate = (dateObj) => {
@@ -34,7 +35,13 @@ const AddToGoogleCalendar = ({ event }) => {
     window.open(googleCalendarUrl, "_blank");
   };
 
-  return <button onClick={handleAddToCalendar}>Add to Google Calendar</button>;
+  return <Button variant="dark" onClick={handleAddToCalendar} size="sm"> 
+  <img 
+            src={"../../7123030_google_calendar_icon.png"} 
+            alt="Google Calendar" 
+            style={{ width: '20px', height: '20px', marginRight: '8px' }} 
+          />
+  Add to Google Calendar</Button>;
 };
 
 export default AddToGoogleCalendar;

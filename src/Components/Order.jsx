@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import "./Styling/singularevent.css"
 
 const Order = ({ eventId }) => {
   useEffect(() => {
@@ -30,7 +32,9 @@ const Order = ({ eventId }) => {
     <div>
       <h2>Buy Tickets</h2>
      
-      <button id={`eventbrite-widget-modal-trigger-${eventId}`}>Sign up to Event</button>
+      <Button className='orderbutton' variant="dark" id={`eventbrite-widget-modal-trigger-${eventId}`} 
+     
+      >Sign up to Event</Button>
     </div>
   );
 };

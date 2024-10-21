@@ -3,6 +3,11 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Order from './Order';
 import AddToGoogleCalendar from './AddToGoogleCalander';
+import { Button, Card, Spinner } from 'react-bootstrap';
+import "./Styling/singularevent.css"
+import { RiArrowGoBackFill } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
+
 
 const SingularEvent = () => {
   const { eventId } = useParams(); 
@@ -10,6 +15,7 @@ const SingularEvent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
+  const navigate = useNavigate();
 
   
   useEffect(() => {
@@ -35,23 +41,40 @@ const SingularEvent = () => {
     fetchEvent();
   }, [eventId, apiKey]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return  <Spinner animation="border" role="status">
+    <span className="visually-hidden">Loading...</span> </Spinner> ;
   if (error) return <p>{error}</p>;
 
-  console.log(event.start);
-  console.log(event.end);
   return (
     <>
-      <div style={{ padding: '20px' }}>
-      <h1>{event.name.text}</h1>
-      <p><strong>Start Date:</strong> {new Date(event.start.utc).toLocaleString()}</p>
-      <p><strong>End Date:</strong> {new Date(event.end.utc).toLocaleString()}</p>
-      <p><strong>Summary:</strong> {event.summary}</p>
-      <p><strong>Capacity:</strong> {event.capacity}</p>
-      <p><strong>Description:</strong> {event.description.html}</p>  
-    </div>
-    <Order eventId={eventId}/>
-    <AddToGoogleCalendar event={event} />
+    <Card className="text-center event-card">
+      <div>
+       <RiArrowGoBackFill className='backbtn' onClick={() => navigate(-1)}/>    
+       
+      </div>
+  
+      <Card.Header> <strong>{event.name.text} </strong></Card.Header>
+      <Card.Body>
+        <Card.Text>
+          Description: {event.description.html}
+        </Card.Text>
+        <Card.Text>
+          Capacity: {event.capacity} <br />
+         Currency: {event.currency}
+        </Card.Text>
+      </Card.Body>
+      <Card.Footer className="text-muted text-footer">
+        <strong>Start Date:</strong> {new Date(event.start.utc).toLocaleString()}
+      </Card.Footer>
+      <Card.Footer className="text-muted text-footer">
+        <strong>End Date:</strong> {new Date(event.end.utc).toLocaleString()}
+      </Card.Footer>
+      <div className="d-grid gap-2">
+      <Order eventId={eventId} />
+      <AddToGoogleCalendar event={event} />
+      </div>
+    </Card>
+     
    
     
     </>

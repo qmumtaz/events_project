@@ -62,7 +62,7 @@ const Events = () => {
 
   return (
     <div className='events-container'>
-      <h2>Upcoming Events</h2>
+      <h2>Events</h2>
     
       <Form.Select aria-label="Default select example" value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
         <option value="">All Events</option>
