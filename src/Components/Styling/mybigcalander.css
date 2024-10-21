@@ -1,0 +1,13 @@
+
+.event-popup {
+    position: fixed; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    top: 200px; 
+    right: 300px;
+    z-index: 1px; 
+    color: #f05537;
+    margin: 10px;
+}
+

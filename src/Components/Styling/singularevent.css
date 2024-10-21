@@ -1,0 +1,29 @@
+.event-card {
+   padding: 100px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px #0000001a;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    color: #f05537;
+    
+  }
+
+  .Card.Header{
+    font-size: 10px;
+  }
+  .text-footer{
+    padding: 0%;
+    margin: 10px;
+    color: f05537;
+  }
+
+  .orderbutton{
+    margin-bottom: 10px;
+    height: auto;
+    
+  }
+
+  .backbtn{
+    position: relative;
+    top: -55px;
+  }

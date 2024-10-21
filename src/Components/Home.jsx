@@ -1,7 +1,5 @@
-// Homepage.js
 import React from 'react';
  
-
 const Homepage = () => {
  
   const upcomingEvents = [
