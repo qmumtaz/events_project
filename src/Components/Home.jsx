@@ -13,8 +13,8 @@ const Homepage = () => {
   return (
     <div >
       <header >
-        <h1>Welcome to the Events Platform</h1>
-        <p>Your one-stop solution for discovering amazing events happening near you!</p>
+        <h1>Welcome to the Eventures</h1>
+        <p>Your one-stop solution for discovering amazing events!</p>
       </header>
 
       <section className="upcoming-events">
