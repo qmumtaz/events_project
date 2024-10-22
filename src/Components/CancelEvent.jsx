@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
+
 
 const CancelEvent = ({ eventId, eventName, onCancel }) => {
     const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
@@ -27,7 +29,7 @@ const CancelEvent = ({ eventId, eventName, onCancel }) => {
             }
         } catch (error) {
          
-            const errorMessage = error.response?.data?.error_description || 'Cannot cancel this event';
+            const errorMessage =  'Event is already cancelled or is not published';
             setError(errorMessage);
         }
     };
@@ -43,7 +45,7 @@ const CancelEvent = ({ eventId, eventName, onCancel }) => {
         <div>
             {error && <p style={{ color: 'red' }}>Error: {error}</p>} 
             {success && <p>{notification}</p>} 
-            <button onClick={handleCancel}>Cancel Event</button>
+            <Button variant='dark' onClick={handleCancel} size="sm">Cancel Event</Button>
         </div>
     );
 };

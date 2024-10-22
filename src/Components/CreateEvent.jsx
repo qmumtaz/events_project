@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import Ticket from './Ticket'; 
-
+import { Form, Button, Spinner, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { RiArrowGoBackFill } from 'react-icons/ri';
 
 const CreateEvent = () => {
     const [eventName, setEventName] = useState('');
@@ -13,9 +15,10 @@ const CreateEvent = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(null);
-    const [ticketSubmitted, setTicketSubmitted] = useState(false); 
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const navigate = useNavigate();
     
-
     const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
     const orgID = import.meta.env.VITE_ORG_ID;
 
@@ -45,7 +48,8 @@ const CreateEvent = () => {
             setSuccess(true);
             return response.data;
         } catch (error) {
-            setError(error);
+            setError('Failed to create event. Please try again.');
+            setShowAlert(true);
             throw error;
         }
     };
@@ -53,9 +57,23 @@ const CreateEvent = () => {
     const handleCreateEvent = async () => {
         setLoading(true);
         setError(null);
+        setShowAlert(false);
 
+        if (eventName.length < 10) {
+            setAlertMessage('Event name must be at least 10 characters long.');
+            setShowAlert(true);
+            setLoading(false);
+            return;
+        }
+        if (summary.length < 10) {
+            setAlertMessage('Summary must be at least 10 characters long.');
+            setShowAlert(true);
+            setLoading(false);
+            return;
+        }
         if (isDateInPast(startDate)) {
-            setError({ message: 'Start date cannot be today or in the past.' });
+            setAlertMessage('Start date cannot be today or in the past.');
+            setShowAlert(true);
             setLoading(false);
             return;
         }
@@ -64,88 +82,91 @@ const CreateEvent = () => {
             const formattedStartDate = new Date(startDate).toISOString().replace(/\.\d{3}/, '');
             const formattedEndDate = new Date(endDate).toISOString().replace(/\.\d{3}/, '');
 
-            await createEvent(orgID, eventName || 'Test Event', formattedStartDate, formattedEndDate, currency, summary);
-            setTicketSubmitted(false); 
+            await createEvent(orgID, eventName, formattedStartDate, formattedEndDate, currency, summary);
         } catch (error) {
-            setError(error);
+            setAlertMessage('An error occurred while creating the event. Please try again later.');
+            setShowAlert(true);
         } finally {
             setLoading(false);
         }
     };
 
-
-
     return (
         <div style={{ padding: '20px' }}>
+            <RiArrowGoBackFill className='backbtn' onClick={() => navigate(-1)} /> 
             <h2>Create Event</h2>
-
             <p>You must create the event first, then complete the ticket details.</p>
-            {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
-            {success && <p style={{ color: 'green' }}>Event created successfully!</p>}
             
-            {!success ? ( 
-                <div>
-                    <div>
-                        <label>Event Name:</label>
-                        <input 
-                            type="text" 
-                            value={eventName} 
-                            onChange={(e) => setEventName(e.target.value)} 
-                            required 
+            {showAlert && <Alert variant="danger">{alertMessage}</Alert>}
+            {success && <Alert variant="success">Event created successfully!</Alert>}
+            
+            {!success ? (
+                <Form>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Event Name:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={eventName}
+                            onChange={(e) => setEventName(e.target.value)}
+                            required
+                            placeholder="Enter event name"
                         />
-                    </div>
-                    <div>
-                        <label>Summary:</label> 
-                        <textarea 
-                            value={summary} 
-                            onChange={(e) => setSummary(e.target.value)} 
-                            required 
-                            rows="4" 
-                            cols="50"
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Summary:</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            value={summary}
+                            onChange={(e) => setSummary(e.target.value)}
+                            required
+                            rows={4}
+                            placeholder="Enter event summary"
                         />
-                    </div>
-                    <div>
-                        <label>Start Date:</label>
-                        <input 
-                            type="datetime-local" 
-                            value={startDate} 
-                            onChange={(e) => setStartDate(e.target.value)} 
-                            required 
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Start Date:</Form.Label>
+                        <Form.Control
+                            type="datetime-local"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            required
                         />
-                    </div>
-                    <div>
-                        <label>End Date:</label>
-                        <input 
-                            type="datetime-local" 
-                            value={endDate} 
-                            onChange={(e) => setEndDate(e.target.value)} 
-                            required 
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>End Date:</Form.Label>
+                        <Form.Control
+                            type="datetime-local"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            required
                         />
-                    </div>
-                    <div>
-                        <label>Currency:</label>
-                        <select 
-                            value={currency} 
-                            onChange={(e) => setCurrency(e.target.value)} 
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Currency:</Form.Label>
+                        <Form.Control
+                            as="select"
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value)}
                         >
                             <option value="USD">USD</option>
                             <option value="GBP">GBP</option>
                             <option value="EUR">EUR</option>
                             <option value="CAD">CAD</option>
-                        </select>
-                    </div>
-                    
-                    <button onClick={handleCreateEvent} disabled={loading}>
-                        {loading ? 'Creating Event...' : 'Create Event'}
-                    </button>
-                </div>
+                        </Form.Control>
+                    </Form.Group>
+
+                    <Button variant="dark" onClick={handleCreateEvent} disabled={loading}>
+                        {loading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Create Event'}
+                    </Button>
+                </Form>
             ) : (
                 <div>
                     <h3>Create Ticket</h3>
-                    <Ticket 
-                        eventId={eventId}
-                    />
-                   
+                    <Ticket eventId={eventId} currency={currency} />
                 </div>
             )}
         </div>

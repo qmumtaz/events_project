@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CancelEvent from './CancelEvent';
-import UpdateEvents from './UpdateEvents';
+import {  Card, ListGroup, Spinner } from 'react-bootstrap';
 
 const ManageEvents = () => {
     const [events, setEvents] = useState([]);
@@ -49,29 +49,39 @@ const ManageEvents = () => {
         setEvents(events.filter(event => event.id !== eventId)); 
     };
 
-    if (loading) return <p>Loading events...</p>;
-    if (error) return <p>Error fetching events: {error.message}</p>;
+    if (loading) return <Spinner animation="border" role="status">
+    <span className="visually-hidden">Loading...</span>
+  </Spinner>  ;
+    if (error) return <p>Error fetching  events: {error.message}</p>;
 
     return (
         <div>
             <h2>Manage Events</h2>
             <Link to="/createevent">Create Events</Link>
             {events.length > 0 ? (
-                <ul className="manage-events-list">
+                <Card style={{ width: '18rem' }}>
                     {events.map(event => (
-                        <li key={event.id} className="event-item">
-                            <p>{event.name.text}</p>
+                        <Card.Body>
+                    
+                        <Card.Title>
+                         <div className="fw-bold"></div>
+                             <p>{event.name.text}</p>
+                                  </Card.Title>
+                            
+                           
                             <CancelEvent 
                                 eventId={event.id} 
                                 eventName={event.name.text}  
                                 onCancel={handleEventCancel} 
                             />
-                            <Link to={`/updateevent/${event.id}`}>Update Events</Link>
                             
-                        </li>
+                            
+                          <Card.Link><Link to={`/updateevent/${event.id}`}>Update Events</Link></Card.Link>  
+                            
+                        </Card.Body>
                         
                     ))}
-                </ul>
+                </Card>
             ) : (
                 <p>No events to manage at the moment.</p>
             )}

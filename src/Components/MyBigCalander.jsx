@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useAuth } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import "./Styling/mybigcalander.css"
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Spinner } from 'react-bootstrap';
 
 const localizer = momentLocalizer(moment);
 
@@ -82,7 +82,9 @@ const MyBigCalendar = () => {
   );
 
 
-  if (loading) return <p>Loading events...</p>;
+  if (loading) return <Spinner animation="border" role="status">
+  <span className="visually-hidden">Loading...</span>
+</Spinner>  ;;
   if (error) return <p>{error}</p>;
 
   return (
