@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Button, Card, ListGroup, Spinner } from 'react-bootstrap';
+import "./Styling/publishevents.css"
 
 const PublishEvents = () => {
   const [draftEvents, setDraftEvents] = useState([]);
@@ -32,27 +34,29 @@ const PublishEvents = () => {
     fetchDraftEvents();
   }, []);
 
-  if (loading) return <p>Loading draft events...</p>;
+  if (loading) return <Spinner animation="border" role="status">
+  <span className="visually-hidden">Loading...</span>
+</Spinner>  ;
   if (error) return <p>Error fetching draft events: {error.message}</p>;
 
   return (
-    <div>
-      <h2>Draft Events</h2>
+    < Card style={{ width: '18rem' }}>
+      <  Card.Header>Draft Events</Card.Header>
       {draftEvents.length > 0 ? (
-        <ul>
+        <ListGroup variant="flush">
           {draftEvents.map((event) => (
-            <li key={event.id}>
-              {event.name.text}
+            <ListGroup.Item key={event.id} className='list-item'>
+              Event name : {event.name.text}
               <Link to={`/publish/${event.id}`}>
-                <button>Publish Event</button>
+                <Button variant='dark' size='sm'>Publish Event</Button>
               </Link>
-            </li>
+            </ListGroup.Item>
           ))}
-        </ul>
+        </ListGroup>
       ) : (
         <p>No draft events to publish.</p>
       )}
-    </div>
+    </Card>
   );
 };
 
