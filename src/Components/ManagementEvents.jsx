@@ -17,7 +17,6 @@ const ManageEvents = () => {
         return canceledEvents ? JSON.parse(canceledEvents) : [];
     };
 
-    
     useEffect(() => {
         const fetchEvents = async () => {
             try {
