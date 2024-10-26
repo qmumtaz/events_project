@@ -1,0 +1,31 @@
+.my-5{
+color: #f05537;
+}
+
+.shadow-lg {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  
+  .p-4 {
+    padding: 1.5rem !important;
+    min-width: 300px;
+  }
+  
+  .profileImg {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+  
+  .text-center.bg-dark.text-white.py-3.mb-4 {
+    font-size: 1.5rem;
+    background-color: #f05537; 
+    color: #ffffff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+  }
+  
