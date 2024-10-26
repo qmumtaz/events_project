@@ -130,9 +130,9 @@ REACT_FIREBASE_MEASUREMENT_ID=your_firebase_measurment_id
 # Resources
 
 
-Eventbrite api - https://www.eventbrite.com/platform/api
-The images can be found on - https://www.pexels.com/search/event/
-Fonts - https://fonts.google.com/selection/embed
-Bootstrap - https://react-bootstrap.netlify.app/docs/getting-started/introduction/
-React icons - https://react-icons.github.io/react-icons/search/#q=back
-More images - https://undraw.co/search
+- Eventbrite api - https://www.eventbrite.com/platform/api
+- The images can be found on - https://www.pexels.com/search/event/
+- Fonts - https://fonts.google.com/selection/embed
+- Bootstrap - https://react-bootstrap.netlify.app/docs/getting-started/introduction/
+- React icons - https://react-icons.github.io/react-icons/search/#q=back
+- More images - https://undraw.co/search && https://www.vecteezy.com/vector-art/37336395-user-profile-vector-flat-illustration-avatar-person-icon-gender-neutral-silhouette-profile-picture 
