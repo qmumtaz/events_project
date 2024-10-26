@@ -125,3 +125,14 @@ REACT_FIREBASE_APP_ID=your_firebase_app_id
 REACT_FIREBASE_MEASUREMENT_ID=your_firebase_measurment_id
 
 ````
+
+
+# Resources
+
+
+Eventbrite api - https://www.eventbrite.com/platform/api
+The images can be found on - https://www.pexels.com/search/event/
+Fonts - https://fonts.google.com/selection/embed
+Bootstrap - https://react-bootstrap.netlify.app/docs/getting-started/introduction/
+React icons - https://react-icons.github.io/react-icons/search/#q=back
+More images - https://undraw.co/search

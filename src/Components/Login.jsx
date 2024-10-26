@@ -60,7 +60,7 @@ const Login = ({ user }) => {
             required
           />
         </Form.Group >
-        <Button variant="primary" type="submit">Login</Button>
+        <Button variant="dark" type="submit">Login</Button>
 
         <Form.Text className='botttomtext'>Already have an account ? Sign in</Form.Text>
         <GoogleButton onClick={SignInWithGoogle} className='googlebtn' />
@@ -72,7 +72,7 @@ const Login = ({ user }) => {
         <p>{alertMessage}</p>
         <hr />
         <div className="d-flex justify-content-end">
-          <Button onClick={() => setShow(false)} variant="outline-success">
+          <Button onClick={() => setShow(false)} variant="dark">
             Close me
           </Button>
         </div>

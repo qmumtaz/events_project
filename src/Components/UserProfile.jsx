@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
-import {  firestore } from '../../firebase'; 
+import { auth, firestore } from '../../firebase'; 
 import { useAuth } from '../../AuthContext';
 
 const UserProfile = () => {
