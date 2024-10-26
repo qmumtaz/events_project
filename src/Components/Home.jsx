@@ -1,41 +1,49 @@
 import React from 'react';
- 
+import { Carousel } from 'react-bootstrap';
+import "./Styling/home.css" 
+
 const Homepage = () => {
- 
-  const upcomingEvents = [
-    { id: 1, title: 'Music Festival', date: 'October 15, 2024', location: 'Central Park' },
-    { id: 2, title: 'Tech Conference', date: 'November 10, 2024', location: 'Convention Center' },
-    { id: 3, title: 'Art Exhibition', date: 'December 5, 2024', location: 'City Gallery' },
-  ];
 
   return (
     <div >
       <header >
         <h1>Welcome to the Eventures</h1>
-        <p>Your one-stop solution for discovering amazing events!</p>
+        <div class="intro">
+      <div class="intro-content">
+    <h1>The people platform managed by you</h1>
+    <p>
+     Lorem ipsum dolor, sit amet consectetur adipisicing elit. In sed error, 
+     perspiciatis quaerat earum soluta sequi eos quae, 
+     dolor totam laborum necessitatibus deserunt optio molestias omnis voluptatum? Rem, quas labore!
+    </p>
+    <a href="/signup" class="join-button">Join Now</a>
+  </div>
+  <div class="intro-image">
+    <img src="../../Images/undraw_Date_picker_re_r0p8.png" />
+  </div>
+</div>
       </header>
 
-      <section className="upcoming-events">
-        <h2>Upcoming Events</h2>
-        <ul>
-          {upcomingEvents.map(event => (
-            <li key={event.id} className="event-item">
-              <h3>{event.title}</h3>
-              <p>Date: {event.date}</p>
-              <p>Location: {event.location}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div class="info-section">
+  <div class="info-cards">
+    <div class="info-card">
+      <h3>Ticketing done easy</h3>
+      <p>You can find and sign up for the events you want</p>
+    </div>
+    <div class="info-card">    
+      <h3>Everything can be managed by our event staff</h3>
+      <p>We’re proud to be different from other ticket agents. Our event staff are always on the board.</p>
+    </div>
+    <div class="info-card">   
+      <h3>Made by fans like you</h3>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste, assumenda.</p>
+    </div>
 
-      <section className="features">
-        <h2>Why Choose Us?</h2>
-        <ul>
-          <li>Easy to navigate and discover events.</li>
-          <li>Personalized recommendations based on your interests.</li>
-          <li>Secure and hassle-free ticket purchasing.</li>
-        </ul>
-      </section>
+  </div>
+  <a href="#" class="read-more">READ MORE ABOUT US</a>
+</div>
+
+
     </div>
   );
 };

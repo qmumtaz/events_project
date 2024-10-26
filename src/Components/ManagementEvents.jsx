@@ -64,7 +64,7 @@ const ManageEvents = () => {
                     
                         <Card.Title>
                          <div className="fw-bold"></div>
-                             <p>{event.name.text}</p>
+                             <p>Event name : {event.name.text}</p>
                                   </Card.Title>
                             
                            
