@@ -15,7 +15,7 @@ The Events platform is a space where the community can view and manage events, o
 - React Big Calendar for calendar display.
 - Bootstrap for responsive UI design.
 
-Access the website that is hosted on : ...................
+Access the website that is hosted on : (https://eventeventures.netlify.app/home)
 
 
 # Eventbrite API Integration
