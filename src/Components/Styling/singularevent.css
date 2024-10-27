@@ -1,29 +1,45 @@
 .event-card {
-   padding: 100px;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px #0000001a;
-    border-radius: 8px;
-    font-size: 1.5rem;
-    color: #f05537;
-    
+  width: 600px;
+  max-width: 90%;
+  height: 650px;
+  margin: 10px ;
+  box-shadow: 0 4px 8px #0000001a;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  color: #f05537;
+  overflow: hidden;   
+}
+
+.card-body{
+  flex : 0 0 ;
+}
+
+.share-container {
+  width: 600px;
+  max-width: 80%;
+
+  margin: 20px auto; 
+  padding: 15px;
+  text-align: center;
+}
+
+.makeStyles-iconContainer-3 {
+  text-align: center !important;
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+
+.socialMedia {
+  display: flex;
+  justify-content: center;
+  gap: 15px; 
+  
+}
+
+@media (max-width: 768px) {
+  .share-container {
+    width: 100%;
+    padding: 10px;
   }
 
-  .Card.Header{
-    font-size: 10px;
-  }
-  .text-footer{
-    padding: 0%;
-    margin: 10px;
-    color: f05537;
-  }
-
-  .orderbutton{
-    margin-bottom: 10px;
-    height: auto;
-    
-  }
-
-  .backbtn{
-    position: relative;
-    top: -55px;
-  }
+}
