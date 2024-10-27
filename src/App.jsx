@@ -12,7 +12,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';  
 import React, { useEffect, useState } from 'react';
-import './app.css';
+import './Components/Styling/app.css';
 import Order from './Components/Order';
 import PublishEvents from './Components/PublishEvents';
 import PublishEventPage from './Components/PublishEventsPage';
