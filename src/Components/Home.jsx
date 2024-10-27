@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import "./Styling/home.css" 
+import eventImg from "../Images/undraw_Date_picker_re_r0p8.png"
 
 const Homepage = () => {
 
@@ -19,7 +20,7 @@ const Homepage = () => {
     <a href="/signup" class="join-button">Join Now</a>
   </div>
   <div class="intro-image">
-    <img src="../../Images/undraw_Date_picker_re_r0p8.png" />
+    <img src={eventImg} />
   </div>
 </div>
       </header>

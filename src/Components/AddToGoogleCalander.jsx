@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import googleImg from '../Images/7123030_google_calendar_icon.png';
 
 const AddToGoogleCalendar = ({ event }) => {
   const formatDate = (dateObj) => {
@@ -37,7 +38,7 @@ const AddToGoogleCalendar = ({ event }) => {
 
   return <Button variant="dark" onClick={handleAddToCalendar} size="sm"> 
   <img 
-            src={"../../Images/7123030_google_calendar_icon.png"} 
+            src={googleImg} 
             alt="Google Calendar" 
             style={{ width: '20px', height: '20px', marginRight: '8px' }} 
           />

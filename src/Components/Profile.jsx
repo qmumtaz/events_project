@@ -2,6 +2,7 @@ import React from 'react';
 import UserProfile from './UserProfile';
 import { Spinner, Container, Card, Button, Row, Col } from 'react-bootstrap';
 import "./Styling/profile.css"
+import profileImg from "../Images/profileimg.jpg"
 
 const Profile = () => {
 
@@ -20,7 +21,7 @@ const Profile = () => {
           <Card.Img 
             className='profileImg'
             variant="top" 
-            src="../../Images/profileimg.jpg"       
+            src={profileImg}
           />
           <Card.Header 
             as="h2" 
