@@ -37,7 +37,7 @@ const AddToGoogleCalendar = ({ event }) => {
 
   return <Button variant="dark" onClick={handleAddToCalendar} size="sm"> 
   <img 
-            src={"../../7123030_google_calendar_icon.png"} 
+            src={"../../Images/7123030_google_calendar_icon.png"} 
             alt="Google Calendar" 
             style={{ width: '20px', height: '20px', marginRight: '8px' }} 
           />

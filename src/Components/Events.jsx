@@ -23,12 +23,9 @@ const Events = () => {
             'Authorization': `Bearer ${apiKey}`
           }
         });
-
-        console.log("Full response:", response.data);
         setOrganizations(response.data.events || []);
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching events:', error);
+      } catch (error) {     
         setError(error);
         setLoading(false);
       }

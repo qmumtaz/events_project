@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Order from './Order';
 import AddToGoogleCalendar from './AddToGoogleCalander';
-import { Button, Card, Spinner } from 'react-bootstrap';
+import {  Card, Spinner } from 'react-bootstrap';
 import "./Styling/singularevent.css"
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import { ShareSocial } from 'react-share-social';
 
 
 const SingularEvent = () => {
@@ -17,7 +18,6 @@ const SingularEvent = () => {
   const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -31,8 +31,8 @@ const SingularEvent = () => {
         );
         setEvent(response.data);
         setLoading(false);
+        
       } catch (err) {
-        console.error('Error fetching event:', err);
         setError('Failed to load event details.');
         setLoading(false);
       }
@@ -44,13 +44,13 @@ const SingularEvent = () => {
   if (loading) return  <Spinner animation="border" role="status">
     <span className="visually-hidden">Loading...</span> </Spinner> ;
   if (error) return <p>{error}</p>;
-
+  console.log(event);
+  
   return (
     <>
     <Card className="text-center event-card">
       <div>
-       <RiArrowGoBackFill className='backbtn' onClick={() => navigate(-1)}/>    
-       
+       <RiArrowGoBackFill className='backbtn' onClick={() => navigate(-1)}/>      
       </div>
   
       <Card.Header> <strong>{event.name.text} </strong></Card.Header>
@@ -60,7 +60,8 @@ const SingularEvent = () => {
         </Card.Text>
         <Card.Text>
           Capacity: {event.capacity} <br />
-         Currency: {event.currency}
+         Currency: {event.currency}<br />
+         Free or Paid: {event.is_free ? 'Free' : 'Paid'}
         </Card.Text>
       </Card.Body>
       <Card.Footer className="text-muted text-footer">
@@ -72,9 +73,17 @@ const SingularEvent = () => {
       <div className="d-grid gap-2">
       <Order eventId={eventId} />
       <AddToGoogleCalendar event={event} />
+      
       </div>
+      
     </Card>
-     
+    <div className="share-container">
+    <ShareSocial
+      className="socialMedia"
+      url={`https://www.eventbrite.com/e/dsadasdasd-tickets-${eventId}`}
+      socialTypes={['facebook', 'twitter', 'reddit', 'linkedin']}
+    />
+  </div>
    
     
     </>
