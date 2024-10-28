@@ -90,14 +90,14 @@ const UpdateEvents = () => {
         setError(null);
         setSuccess(false);
 
-        if (eventName.length < 10) {
-            setAlertMessage('Event name must be at least 10 characters long.');
+        if (eventName.length < 10 || eventName.length > 100) {
+            setAlertMessage('Event name must be at least 10 characters long and less than 100.');
             setShowAlert(true);
             setLoading(false);
             return;
         }
-        if (summary.length < 10) {
-            setAlertMessage('Summary must be at least 10 characters long.');
+        if (summary.length < 10 || summary.length > 200) {
+            setAlertMessage('Summary must be at least 10 characters long and less than 200.');
             setShowAlert(true);
             setLoading(false);
             return;

@@ -47,6 +47,7 @@ const PublishEvents = () => {
           {draftEvents.map((event) => (
             <ListGroup.Item key={event.id} className='list-item'>
               Event name : {event.name.text}
+              <br></br>
               <Link to={`/publish/${event.id}`}>
                 <Button variant='dark' size='sm'>Publish Event</Button>
               </Link>
