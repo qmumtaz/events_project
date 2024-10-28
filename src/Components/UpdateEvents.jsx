@@ -43,6 +43,7 @@ const UpdateEvents = () => {
             } catch (error) {
                 setError({ message: 'Failed to fetch event details.' });
                 
+               
             } finally {
                 setFetchingData(false);
             }
@@ -77,9 +78,9 @@ const UpdateEvents = () => {
                 }
             );
 
-            console.log(response);
+            navigate('/events');
         } catch (error) {
-            console.error('Error updating event:', error);
+            
             throw error;
         }
     };
