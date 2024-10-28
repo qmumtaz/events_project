@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 
-const Ticket = ({ eventId , currency }) => {
+const Ticket = ({ eventId, currency }) => {
     const [ticketName, setTicketName] = useState('');
-    const [quantityTotal, setQuantityTotal] = useState(0);
+    const [quantityTotal, setQuantityTotal] = useState(1);
     const [isFree, setIsFree] = useState(false); 
     const [cost, setCost] = useState(''); 
     const [loading, setLoading] = useState(false);
@@ -14,6 +14,13 @@ const Ticket = ({ eventId , currency }) => {
     const navigate = useNavigate();
 
     const apiKey = import.meta.env.VITE_EVENTBRITE_API_KEY;
+
+    const handleQuantityChange = (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value >= 1 && value <= 200) {
+            setQuantityTotal(value);
+        }
+    };
 
     const createTicket = async () => {
         setLoading(true);
@@ -32,13 +39,12 @@ const Ticket = ({ eventId , currency }) => {
                     free: isFree
                 }
             };
-    
-    
+
             if (!isFree && formattedCost) {
                 ticketData.ticket_class.cost = formattedCost;
             }
     
-            const response = await axios.post(
+            await axios.post(
                 `https://www.eventbriteapi.com/v3/events/${eventId}/ticket_classes/`,
                 ticketData,
                 {
@@ -49,13 +55,13 @@ const Ticket = ({ eventId , currency }) => {
                 }
             );
     
-            console.log('Ticket created successfully:', response.data);
             setSuccess(true);
             navigate('/events');
         } catch (error) {
-            console.error('Error creating ticket:', error.response?.data);
-            setError( 'You must create an Event first, then a ticket');
-        } 
+            setError('You must create an Event first, then a ticket');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -76,13 +82,15 @@ const Ticket = ({ eventId , currency }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Quantity Total:</Form.Label>
+                    <Form.Label>Quantity Total (1-200):</Form.Label>
                     <Form.Control
                         type="number"
                         value={quantityTotal}
-                        onChange={(e) => setQuantityTotal(e.target.value)}
+                        onChange={handleQuantityChange}
                         required
                         placeholder="Enter total amount of tickets"
+                        min="1"
+                        max="200"
                     />
                 </Form.Group>
 
