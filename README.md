@@ -17,6 +17,19 @@ The Events platform is a space where the community can view and manage events, o
 
 Access the website that is hosted on : (https://eventeventures.netlify.app/home)
 
+# Test Credentials
+To test the app's functionality, use these credentials:
+
+Admin/Staff: any username with the @eventstaff
+Email: anyusername@eventstaff.com 
+Password: test123 - any password that is 6 characters long
+
+Regular User: this can be your own email or gmail
+Email: user@example.com 
+Password: test123 - - any password that is 6 characters long
+
+Guest: Access without logging in (limited features).
+
 
 # Eventbrite API Integration
 
