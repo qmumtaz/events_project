@@ -1,5 +1,4 @@
 import React from 'react';
-import { Carousel } from 'react-bootstrap';
 import "./Styling/home.css" 
 import eventImg from "../Images/undraw_Date_picker_re_r0p8.png"
 
@@ -11,13 +10,13 @@ const Homepage = () => {
         <h1>Welcome to the Eventures</h1>
         <div class="intro">
       <div class="intro-content">
-    <h1>The people platform managed by you</h1>
+    <h1>Discover, Manage, and Join Amazing Events Tailored Just for You</h1>
     <p>
-     Lorem ipsum dolor, sit amet consectetur adipisicing elit. In sed error, 
-     perspiciatis quaerat earum soluta sequi eos quae, 
-     dolor totam laborum necessitatibus deserunt optio molestias omnis voluptatum? Rem, quas labore!
+    Eventures brings together users and event managers to create seamless experiences. 
+    Our platform supports easy ticketing, 
+    managed by dedicated staff, with a personalized event calendar for you to explore.
     </p>
-    <a href="/signup" class="join-button">Join Now</a>
+    <a href="/events  " class="join-button">Want to check out some events click here</a>
   </div>
   <div class="intro-image">
     <img src={eventImg} />
@@ -29,19 +28,19 @@ const Homepage = () => {
   <div class="info-cards">
     <div class="info-card">
       <h3>Ticketing done easy</h3>
-      <p>You can find and sign up for the events you want</p>
+      <p>You can find and sign up for the events do whatever you want and easily accessible.</p>
     </div>
     <div class="info-card">    
       <h3>Everything can be managed by our event staff</h3>
       <p>We’re proud to be different from other ticket agents. Our event staff are always on the board.</p>
     </div>
     <div class="info-card">   
-      <h3>Made by fans like you</h3>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste, assumenda.</p>
+      <h3>Personal Event Calendar </h3>
+      <p>Access a calendar view of upcoming events, making it easy to track and plan your activities.</p>
     </div>
 
   </div>
-  <a href="#" class="read-more">READ MORE ABOUT US</a>
+  <a href="/signup" class="read-more">Join us now</a>
 </div>
 
 
